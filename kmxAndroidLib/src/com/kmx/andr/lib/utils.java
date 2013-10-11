@@ -6,10 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Method;
-import java.util.concurrent.Callable;
+import java.util.ArrayList;
 
 import android.os.Environment;
 import android.util.DisplayMetrics;
@@ -17,11 +14,12 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 
 public class utils {
@@ -29,10 +27,41 @@ public class utils {
 	public static String appName = "KJLibBasic";
 	public static boolean debugOff = false;
 	private static Activity caller;
+	public com.kmx.java.lib.tools.utils jlib;
+	public Filesystem fs;
+	public Context con;
+	public String PackageName;
+
 	
 	public utils(Activity callerClsThis, String app) {
 		appName = app;
 		caller = callerClsThis;
+		jlib = new com.kmx.java.lib.tools.utils(app);
+		con = utils.getContext(caller);
+		fs = new Filesystem(caller, app);
+
+		doProcess();
+		
+	}
+
+	private void doProcess() {
+		// TODO Auto-generated method stub
+
+			PackageManager m = con.getPackageManager();
+			PackageName = con.getPackageName();
+			try {
+			    PackageInfo p = m.getPackageInfo(PackageName, 0);
+			    //s = p.applicationInfo.dataDir;
+			} catch (NameNotFoundException e) {
+			    Log.w("yourtag", "Error Package name not found ", e);
+			}
+		
+		
+	}
+
+
+	public Context getConn(Activity av) {
+		return av.getApplicationContext();
 	}
 	
 	public static void ShowMessageCore(Context conn, String message, boolean isLongTime) {
@@ -99,16 +128,21 @@ public class utils {
         return (int) px;
     }
     
-	public Context getContext(View v) {
+	public static Context getContext(View v) {
 		return v.getContext();
 	}
 
-	public Context getContext(Activity a) {
+	public static Context getContext(Activity a) {
 		return a.getBaseContext();
 	}
 
 	public static void disp(String data) {
 		System.out.println(data);
+	}
+
+	public static void error(String data) {
+		if (!debugOff)
+			Log.e(appName, data);
 	}
 	
 	public static void debug(String data) {

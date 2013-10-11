@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="au/com/bytecode/opencsv/bean/|com/kmx/java/lib/tools/currencyconverter/|com/kmx/java/lib/tools/db/|com/kmx/java/lib/tools/ftp/|com/kmx/java/lib/tools/html/|com/kmx/java/lib/tools/mail/|com/kmx/java/lib/tools/oldlib/" kind="src" path="extrsrc"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/kmxJavaLib"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
