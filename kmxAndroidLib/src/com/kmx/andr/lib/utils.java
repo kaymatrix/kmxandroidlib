@@ -14,9 +14,12 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -64,6 +67,19 @@ public class utils {
 		return av.getApplicationContext();
 	}
 	
+//	public String alert() {
+//		
+////		PromptDialog dlg = new PromptDialog(MainActivity.this, R.string.title, R.string.enter_comment) {  
+////			 @Override  
+////			 public boolean onOkClicked(String input) {  
+////			  // do something  
+////			  return true; // true = close dialog  
+////			 }  
+////			};  
+////			dlg.show();
+//		
+//	}
+
 	public static void ShowMessageCore(Context conn, String message, boolean isLongTime) {
 		Toast toast;
 		if (isLongTime) 
