@@ -2,24 +2,27 @@ package com.kmx.andr.lib;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 
-import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -46,6 +49,42 @@ public class utils {
 		doProcess();
 		
 	}
+	
+
+	  public static void serializeObjectToFile(String fileName, Object o) { 
+		  	File f = new File(fileName);
+	  	
+		    try {
+			  	FileOutputStream fos = new FileOutputStream(f);		    	
+				ObjectOutput out = new ObjectOutputStream(fos); 
+				out.writeObject(o); 
+				out.close(); 
+				System.out.println("Done!");
+		    } catch(IOException ioe) { 
+		    	Log.e("serializeObject", "error", ioe); 
+		    }catch(Exception e){
+		    	System.out.println(e);
+		    } 
+		    
+	  } 	
+
+		public static Object deSerializeObjectFromFile(String fileName) { 
+		  	File f = new File(fileName);
+	  	
+		    try {
+		    	FileInputStream fis = new FileInputStream(f);		    	
+		    	ObjectInputStream  in = new ObjectInputStream (fis); 
+				Object obj = in.readObject(); 
+				in.close();
+				return obj;
+		    } catch(IOException ioe) { 
+		    	Log.e("serializeObject", "error", ioe); 
+		    }catch(Exception e){
+		    	System.out.println(e);
+		    } 
+		    return null;
+	  } 		  
+
 
 	private void doProcess() {
 		// TODO Auto-generated method stub
@@ -58,10 +97,7 @@ public class utils {
 			} catch (NameNotFoundException e) {
 			    Log.w("yourtag", "Error Package name not found ", e);
 			}
-		
-		
 	}
-
 
 	public Context getConn(Activity av) {
 		return av.getApplicationContext();
@@ -112,7 +148,8 @@ public class utils {
 		return timeTag("");
 	}
 	
-    public static String timeTag(String format) {
+    @SuppressLint("NewApi")
+	public static String timeTag(String format) {
     	if (format.isEmpty() || format==null || format=="")
     		format = "yyMMddHHmmss";
     	return com.kmx.java.lib.tools.utils.timeTag(format);
@@ -319,6 +356,8 @@ public class utils {
             debug("Unable to write " + fileName);
         }
     }
+
+
 
 
 	
