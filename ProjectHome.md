@@ -1,0 +1,1 @@
+Easy to use android lib project providing various features like Error Log, Path handling etc
